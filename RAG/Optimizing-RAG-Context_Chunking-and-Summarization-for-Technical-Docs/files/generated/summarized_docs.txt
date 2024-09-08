@@ -1,0 +1,99 @@
+Metadata: {'type': 'summary', 'id': '19392a3d-52c5-4b0c-b0ab-7fd0052aef49'}
+Content: Python has additional control flow tools beyond the `while` statement, including other statements that will be covered in this chapter.
+
+Metadata: {'type': 'summary', 'id': '5207573f-88c8-4004-9e13-6b50683d04a3'}
+Content: The if statement is a well-known control flow tool that allows for conditional execution of code based on a condition. It can have zero or more elif parts and an optional else part, with elif being short for "else if" to avoid excessive indentation. An if-elif sequence can be used as a substitute for switch or case statements found in other languages. The match statement is also useful for comparing values to several constants or checking specific types or attributes, but its details are covered separately.
+
+Metadata: {'type': 'summary', 'id': '450cd7b3-c68d-472a-9ded-dc3d3fc34e7a'}
+Content: Python's `for` statement iterates over the items of any sequence (list or string) in their order of appearance. It differs from C and Pascal's iteration methods, which often involve arithmetic progressions or user-defined halting conditions. The `for` loop can be used to iterate over a copy of a collection or create a new collection, making it easier to avoid modifying the original collection while iterating over it.
+
+Metadata: {'type': 'summary', 'id': '1ff36254-aa51-4302-b0f1-aeba92212a96'}
+Content: The built-in `range()` function generates arithmetic progressions that can be used for iteration over a sequence of numbers. It takes three parameters: start point, end point, and step (default is 1), and returns an iterator that produces the specified range of values. For example, `range(5)` generates numbers from 0 to 4, while `range(5, 10)` generates numbers from 5 to 9. The `range()` function can also be used in combination with `len()` to iterate over the indices of a sequence, or with other functions like `enumerate()` for more convenient looping techniques.
+
+Metadata: {'type': 'summary', 'id': 'd0f21c29-decf-405b-828f-8b714eebd459'}
+Content: The `range()` function returns an object that behaves like a list but doesn't actually make one, saving space. This iterable object can be used with functions and constructs that expect successive items until the supply is exhausted, such as the `for` statement or the `sum()` function. When printed directly, it displays its start and end values, e.g., `range(0, 10)`.
+
+Metadata: {'type': 'summary', 'id': '02d0ffc3-265d-4dc0-84a6-bcb6573a5412'}
+Content: The break statement exits the innermost enclosing for or while loop. Both for and while loops can have an else clause, which executes after the final iteration of a for loop or when the condition becomes false in a while loop. However, if a break statement terminates the loop, the else clause is not executed.
+
+Metadata: {'type': 'summary', 'id': '5f2517bc-f6c7-4734-8c30-b8fde83490bd'}
+Content: The `break` and `continue` statements can be used in loops to control their execution. In a nested `for` loop that searches for prime numbers, using `break` within an inner loop allows it to exit when a factor is found, while the outer loop continues with the next number. The `else` clause belongs to the outer loop and executes if the inner loop completes without finding a factor, indicating the current number is prime.
+
+Metadata: {'type': 'summary', 'id': '5bd2352e-6bae-4d32-a7da-9103db5f09ba'}
+Content: The `else` clause in a loop runs when no `break` occurs, similar to how it works with the `try` statement and exceptions. The `continue` statement skips to the next iteration of the loop, continuing execution from there. For example, in a for loop iterating over numbers 2-9, using `continue` when a number is even will print only odd numbers, while the `else` clause would run after all iterations are complete if no break occurred.
+
+Metadata: {'type': 'summary', 'id': 'f8d37d3c-4cd8-49c2-aa7e-d0f790a60dfb'}
+Content: The `pass` statement does nothing and can be used when a statement is required syntactically but no action is needed, such as in a while loop or class definition. It's also useful as a placeholder for a function or conditional body when working on new code, allowing you to focus on the overall structure without getting bogged down in implementation details.
+
+Metadata: {'type': 'summary', 'id': 'a9f3edcb-a28f-495f-b1f1-f4b56a136cd6'}
+Content: A `match` statement in Python compares an expression's value against successive patterns given as one or more case blocks, similar to pattern matching in languages like Rust or Haskell. It takes a subject value and executes the first matching pattern, which can also extract components from the value into variables. The simplest form compares against literals, with a wildcard `_` acting as a catch-all that never fails to match, allowing for a default return value if no other case matches.
+
+Metadata: {'type': 'summary', 'id': '823c17d2-3345-4a8e-afb1-59c885aa3d05'}
+Content: The `match` statement in Python allows combining several literals in a single pattern using the `|` operator for "or" conditions. Patterns can also resemble unpacking assignments and bind variables, enabling the extraction of values from the subject being matched. This is demonstrated through examples where patterns are used to match different cases, including those with multiple literals or variable bindings, and a catch-all case to handle unexpected inputs.
+
+Metadata: {'type': 'summary', 'id': '309954fa-9a05-474f-9eb8-a3c69d0abeef'}
+Content: The `match` statement in Python allows for more control flow tools, particularly when working with classes that structure data. It enables capturing attributes into variables using a syntax resembling a constructor, but with additional capabilities. This can be achieved by using the class name followed by an argument list, where positional parameters can be used with built-in classes like dataclasses. The `__match_args__` special attribute in classes can also define specific positions for attributes in patterns, making certain patterns equivalent and allowing variables to be bound accordingly. A recommended way to read these patterns is as an extended form of what would be on the left side of an assignment, with only standalone names being assigned to by a match statement.
+
+Metadata: {'type': 'summary', 'id': 'c8a31872-1aa8-4cc0-9a76-6cbe841471ae'}
+Content: The `match` statement allows for arbitrary pattern nesting and supports various types of patterns including sequence, mapping, and subpatterns. Patterns can be guarded with an `if` clause, known as a "guard", where value capture happens before the guard is evaluated. Sequence patterns support extended unpacking, and mapping patterns can capture specific key-value pairs from dictionaries. Subpatterns can be captured using the `as` keyword, and most literals are compared by equality except for singletons like `True`, `False`, and `None` which are compared by identity. Patterns may also use named constants to prevent them from being interpreted as capture variables.
+
+Metadata: {'type': 'summary', 'id': '0a569fde-d1df-4f7c-9315-1e6da9b15214'}
+Content: The `def` keyword introduces a function definition, followed by the function name and a parenthesized list of formal parameters. The body of the function must be indented and can start with an optional string literal, known as a docstring, which provides documentation for the function. A function was defined to write the Fibonacci series up to a specified boundary, demonstrating how functions can be used to perform specific tasks; this example also highlights the importance of including docstrings in code to facilitate understanding and automation of documentation.
+
+Metadata: {'type': 'summary', 'id': 'dd12aa3d-bb02-4c43-8d25-408afda2510e'}
+Content: When a function is executed, it introduces a new local symbol table used for its variables, which takes precedence over global and built-in names. Variable assignments within the function store values in this local table, while references first look here, then in enclosing functions' tables, and finally in the global table. Global variables can be referenced but not directly assigned unless named in a `global` statement, while variables of enclosing functions can be referenced or reassigned if named in a `nonlocal` statement. Function arguments are introduced into the local symbol table when called and passed using call by value, where the value is an object reference, not the object itself. When a function calls another or itself recursively, a new local symbol table is created for that call.
+
+Metadata: {'type': 'summary', 'id': 'e5f1bd61-940e-487e-a862-87b7129778e0'}
+Content: A function definition associates a name with a function object, allowing other names to point to and access the same function. Functions without a return statement implicitly return None, which can be suppressed by the interpreter unless explicitly printed using print(). The Fibonacci series can be calculated using a function that returns a list of numbers up to a given value n, demonstrating the use of the return statement and methods like append() for lists.
+
+Metadata: {'type': 'summary', 'id': '2549fd05-95ba-41d1-bc10-43a213073b3f'}
+Content: Functions can be defined with a variable number of arguments, using three combinable forms.
+
+Metadata: {'type': 'summary', 'id': '7e813062-aa4a-416e-bc53-d63fcd522d94'}
+Content: The most useful form of defining a function with default argument values is to specify a default value for one or more arguments. This allows the function to be called with fewer arguments than it's defined to allow, while still providing flexibility in its usage. For example, the `ask_ok` function can be called with only the mandatory argument, one optional argument, or all arguments. However, if a mutable object such as a list is used as a default value, it will be shared between subsequent calls unless explicitly avoided by setting the default to None and checking for it within the function.
+
+Metadata: {'type': 'summary', 'id': '4d9b8927-af67-4720-957d-649b0b26030f'}
+Content: Functions can be called using keyword arguments of the form `kwarg=value`, where one required argument and multiple optional arguments can be specified. The parrot function, for example, accepts a voltage value as a required argument and state, action, and type values as optional arguments. It can be called in various ways, including with positional or keyword arguments, but invalid calls include missing required arguments, non-keyword arguments after keyword arguments, duplicate values for the same argument, and unknown keyword arguments. In a function call, keyword arguments must follow positional arguments, and all keyword arguments passed must match one of the arguments accepted by the function. A final formal parameter of the form `**name` can receive a dictionary containing all keyword arguments except for those corresponding to a formal parameter, which may be combined with a formal parameter of the form `*name` that receives a tuple containing positional arguments beyond the formal parameter list.
+
+Metadata: {'type': 'summary', 'id': '114197ac-c6b5-45ed-bc95-77edf4df43b7'}
+Content: A Python function can restrict argument passing to position, position or keyword, or keyword only for readability and performance. This is achieved by using `/` and `*` in the function definition, which indicate positional-only, positional-or-keyword, and keyword-only parameters respectively. The `/` symbol indicates that an argument must be passed by position, while the `*` symbol indicates it can only be passed by keyword.
+
+Metadata: {'type': 'summary', 'id': '3b0b9f70-a0ee-4eb2-9e53-623d5c6cf52d'}
+Content: Arguments may be passed to a function by position or by keyword if `/` and `*` are not present in the function definition.
+
+Metadata: {'type': 'summary', 'id': 'b16bab91-4e4a-44a2-90ec-d200e3485688'}
+Content: Positional-only parameters can be marked by placing a forward-slash (/) after them in the function definition. These parameters must be passed in order and cannot be passed by keyword, but those that follow the / can be either positional-or-keyword or keyword-only.
+
+Metadata: {'type': 'summary', 'id': '54ea7ffa-8290-4ebe-849f-219e9f2ae81a'}
+Content: To define a function with keyword-only arguments, place an asterisk (*) in the arguments list just before the first keyword-only parameter, indicating that it and any subsequent parameters must be passed by keyword argument.
+
+Metadata: {'type': 'summary', 'id': 'b9bd63fd-e24f-477b-ac02-fdee498cb16e'}
+Content: The Python language has introduced new features for defining functions with more control flow tools. Specifically, it allows for special parameters such as / and * to restrict how arguments are passed to a function. The / parameter restricts the function to only use positional parameters, while the * parameter restricts the function to only use keyword arguments. These features can be used together in a single function definition, but there are rules and restrictions on how they interact with each other. For example, if a function has a / parameter, it cannot have any positional-only arguments passed as keyword arguments. Similarly, if a function has a * parameter, it cannot have any positional arguments passed at all. The use of these special parameters can help avoid common pitfalls such as ambiguity between positional and keyword arguments.
+
+Metadata: {'type': 'summary', 'id': 'ea4cc544-c491-419d-8bb2-2b40aef13c56'}
+Content: The use case determines which parameters to use in a function definition, including positional-only and keyword-only parameters. Positional-only parameters are used when names have no real meaning or if enforcing argument order is necessary, while keyword-only parameters are used when names have meaning and explicitness is desired. This approach can also be useful for APIs, where positional-only parameters prevent breaking changes due to future parameter name modifications.
+
+Metadata: {'type': 'summary', 'id': '2b820c95-6757-4429-903b-32db1a4237a0'}
+Content: A function can be defined to accept an arbitrary number of arguments, which are wrapped in a tuple and appear last in the list of formal parameters. These variadic arguments scoop up all remaining input arguments passed to the function, making any subsequent formal parameters keyword-only, meaning they must be used as keywords rather than positional arguments.
+
+Metadata: {'type': 'summary', 'id': '23109fcd-3a2e-4248-be22-26c236d36c30'}
+Content: When arguments are already in a list or tuple but need to be unpacked for a function call, the *-operator can be used to separate positional arguments. For example, the range() function expects separate start and stop arguments, which can be unpacked from a list: list(range(*args)). Similarly, dictionaries can deliver keyword arguments with the **-operator, allowing functions to accept arbitrary keyword arguments: parrot(**d).
+
+Metadata: {'type': 'summary', 'id': 'fc317f95-35c1-4297-9564-d417392e915e'}
+Content: Small anonymous functions can be created with the `lambda` keyword, which returns a single expression. Lambda functions are syntactically restricted to a single expression and semantically equivalent to normal function definitions. They can reference variables from the containing scope and can be used wherever function objects are required. Examples include returning a function that takes an argument (e.g., `make_incrementor`) or passing a small function as an argument to another function, such as sorting a list of pairs based on a key defined by a lambda expression.
+
+Metadata: {'type': 'summary', 'id': 'a002cece-84d3-47aa-b8e2-ce735ac8775a'}
+Content: Documentation strings should have a concise summary on the first line, followed by a blank line and then paragraphs describing the object's calling conventions and side effects. The Python parser does not strip indentation from multi-line string literals, so tools process documentation by stripping indentation based on the first non-blank line after the first line of the string, which determines the amount of indentation for the entire documentation string.
+
+Metadata: {'type': 'summary', 'id': '82b32499-c2c6-4dd2-9856-d00df76101a4'}
+Content: Function annotations are optional metadata that provide information about the types used by user-defined functions. They are stored in the `__annotations__` attribute of the function as a dictionary and have no effect on other parts of the function. Annotations can be defined for parameters using a colon after the parameter name, followed by an expression evaluating to the value of the annotation, or for return values using a literal `->`, followed by an expression, between the parameter list and the end of the `def` statement.
+
+Metadata: {'type': 'summary', 'id': '606afe10-dec7-4a8f-ac81-aad8728725ba'}
+Content: As you write longer and more complex pieces of Python code, adopting a consistent coding style is crucial for readability. The official PEP 8 guide promotes a readable and visually pleasing style, which most projects adhere to. Key points include using 4-space indentation (no tabs) and wrapping lines at 79 characters or less to maintain clarity and ease of reading.
+
+Metadata: {'type': 'summary', 'id': 'ee3be23a-71d3-48b0-a125-107bf703f7e0'}
+Content: Use blank lines to separate functions and classes, and larger blocks of code inside functions. Comments should be on their own line when possible, and use docstrings for documentation. Consistent naming conventions are also important: use UpperCamelCase for classes and lowercase_with_underscores for functions and methods, with self as the first method argument name. Additionally, avoid using fancy encodings or non-ASCII characters in identifiers if the code may be used internationally, instead opting for Python's default UTF-8 or plain ASCII encoding.
+
+Metadata: {'type': 'summary', 'id': 'cfef802d-3371-4dfb-be67-dfefee729c1e'}
+Content: Actually, call by object reference would be a better description, since if a mutable object is passed, the caller will see any changes the callee makes to it.
+
