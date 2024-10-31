@@ -1,0 +1,240 @@
+[
+    {
+        "page_content": "Python also uses several other control flow tools beyond the `while` statement, which will be covered in this chapter.",
+        "metadata": {
+            "type": "summary",
+            "doc_id": "a048e600-898a-461a-a9eb-8ba66896dcbb"
+        }
+    },
+    {
+        "page_content": "The if statement is a well-known control flow tool that allows for conditional execution of code based on a condition. It can have zero or more elif parts and an optional else part, with elif being short for \"else if\" to avoid excessive indentation. An if-elif sequence can be used as a substitute for switch or case statements found in other languages. The match statement is also useful for comparing values to several constants or checking specific types or attributes, but its details are covered separately.",
+        "metadata": {
+            "type": "summary",
+            "doc_id": "c0fe74c3-a332-459c-8ab2-2098b060c448"
+        }
+    },
+    {
+        "page_content": "The Python `for` statement iterates over the items of any sequence (list or string) in their order of appearance. It differs from C and Pascal's iteration methods, which often involve arithmetic progressions or user-defined steps and halting conditions. When modifying a collection while iterating over it can be tricky, it is usually more straightforward to loop over a copy of the collection or create a new one, as shown by examples using dictionaries and lists.",
+        "metadata": {
+            "type": "summary",
+            "doc_id": "44717bec-0061-4c5b-ac56-08e452eaf515"
+        }
+    },
+    {
+        "page_content": "The built-in `range()` function generates arithmetic progressions that can be used for iteration over a sequence of numbers. It takes three parameters: start point, end point, and step (default is 1), and returns an iterator that produces the specified range of values. The end point is never part of the generated sequence. To iterate over the indices of a sequence, `range()` can be combined with `len()`, but in most cases it's more convenient to use the `enumerate()` function for this purpose.",
+        "metadata": {
+            "type": "summary",
+            "doc_id": "783a7306-daff-4a19-b935-5f6fa57a3127"
+        }
+    },
+    {
+        "page_content": "The `range()` function returns an object that behaves like a list but doesn't actually make one, saving space. This object is iterable, meaning it can be used with functions and constructs that expect successive items until exhausted, such as the `for` statement or the `sum()` function. When printed directly, `range()` displays its start and end values, but when iterated over or passed to a function like `sum()`, it returns the desired sequence of numbers.",
+        "metadata": {
+            "type": "summary",
+            "doc_id": "be376f8a-e667-4acb-9809-6c6f181d8d82"
+        }
+    },
+    {
+        "page_content": "The `break` statement exits the innermost enclosing for or while loop, stopping execution of the loop and continuing with the next statement. This is demonstrated by a nested for loop that prints factors of numbers from 2 to 9, where the break statement stops the loop when a factor is found. The `continue` statement skips the rest of the current iteration in a loop and moves on to the next one, as shown by a for loop that iterates over numbers from 2 to 9, printing even numbers and skipping odd ones.",
+        "metadata": {
+            "type": "summary",
+            "doc_id": "95ae9fca-2aa5-46c2-af10-4f33a0556d76"
+        }
+    },
+    {
+        "page_content": "A `for` or `while` loop can be paired with an `else` clause, which executes if the loop finishes normally without executing a `break`. In a `for` loop, this occurs after the final iteration, while in a `while` loop, it happens when the condition becomes false. The `else` clause is not executed if the loop is terminated by a `break`, or other early termination methods like `return` or exceptions.",
+        "metadata": {
+            "type": "summary",
+            "doc_id": "1384806d-e5f5-4a16-84b8-da6a893cf6b5"
+        }
+    },
+    {
+        "page_content": "The `for` loop searches for prime numbers by iterating over a range and checking each number's factors. The loop uses an inner `for` loop to check if a number has any factors up to itself, and if so, prints that it equals one of those factors times the other factor. If no factors are found after checking all possible ones, the outer `else` clause executes, printing that the number is prime.",
+        "metadata": {
+            "type": "summary",
+            "doc_id": "c4ceec6b-2612-4ca6-aa77-f5ba9a8c868b"
+        }
+    },
+    {
+        "page_content": "The `else` clause used with a loop has similarities to the `else` clause of a `try` statement, running when no exception or break occurs respectively, rather than being similar to an `if` statement's `else` clause.",
+        "metadata": {
+            "type": "summary",
+            "doc_id": "1c68cf71-e520-421a-b96b-2313d24db320"
+        }
+    },
+    {
+        "page_content": "The `pass` statement does nothing and can be used when a statement is required syntactically but no action is needed, such as in a while loop or class definition. It's also useful as a placeholder for a function or conditional body when working on new code, allowing you to focus on the overall structure without getting bogged down in implementation details.",
+        "metadata": {
+            "type": "summary",
+            "doc_id": "b121ae50-8d83-4da2-b5a9-b5d631a92794"
+        }
+    },
+    {
+        "page_content": "A `match` statement in Python compares an expression's value against successive patterns given as one or more case blocks, similar to pattern matching in languages like Rust or Haskell. It takes a subject value and executes the first matching pattern, which can also extract components from the value into variables. The simplest form compares against literals, with a wildcard `_` acting as a catch-all that never fails to match, allowing for a default return value if no other case matches.",
+        "metadata": {
+            "type": "summary",
+            "doc_id": "dcc757b1-5d05-40d7-9cd7-34dfe2d538b4"
+        }
+    },
+    {
+        "page_content": "The `match` statement in Python allows for more control flow tools by combining several literals in a single pattern using the `|` operator. Patterns can also look like unpacking assignments and bind variables, enabling the extraction of values from the subject being matched. This is demonstrated through examples where patterns are used to match different cases, including those with multiple literals or variable bindings, allowing for more complex logic and data manipulation within a single statement.",
+        "metadata": {
+            "type": "summary",
+            "doc_id": "82e89bf5-26af-4c72-9a41-cef8ac5da055"
+        }
+    },
+    {
+        "page_content": "You can use the `match` statement with classes to capture attributes into variables, allowing for more control flow tools in your code. This is done by using the class name followed by an argument list resembling a constructor, but with the ability to capture attributes into variables. For example, you can define a `Point` class and use it in a `match` statement to print different messages based on the values of its attributes. The `match` statement also supports positional parameters for built-in classes that provide an ordering for their attributes, such as dataclasses, and allows defining a specific position for attributes in patterns by setting the `__match_args__` special attribute in your classes.",
+        "metadata": {
+            "type": "summary",
+            "doc_id": "41b407af-0e79-4d20-907e-aa77d75add4f"
+        }
+    },
+    {
+        "page_content": "The `match` statement allows for arbitrarily nested patterns to be matched against input values. Patterns can include guards, which are conditions that must be met for the pattern to match, and value capture happens before the guard is evaluated. Sequence patterns support extended unpacking, mapping patterns allow for capturing specific key-value pairs from dictionaries, and subpatterns can be captured using the `as` keyword. Additionally, named constants can be used in patterns, and most literals are compared by equality, with singletons like `True`, `False`, and `None` being compared by identity.",
+        "metadata": {
+            "type": "summary",
+            "doc_id": "60a54b6e-84f6-47ee-9e18-c62b3f902a34"
+        }
+    },
+    {
+        "page_content": "The `def` keyword introduces a function definition, followed by the function name and a parenthesized list of formal parameters. The body of the function must be indented and can start with an optional string literal, known as a docstring, which provides documentation for the function. A function can be used to perform specific tasks, such as writing the Fibonacci series up to a given boundary, by defining it with a name and calling it with desired parameters, like `fib(2000)`.",
+        "metadata": {
+            "type": "summary",
+            "doc_id": "3a578ae7-722b-4e1b-8dbb-90f64797e5d3"
+        }
+    },
+    {
+        "page_content": "When a function is executed, it introduces a new local symbol table used for its variables, which takes precedence over global and built-in names. Variable assignments within the function store values in this local table, while references first look here, then in enclosing functions' tables, and finally in the global table. Global variables can be referenced but not directly assigned unless named in a `global` statement, while variables from enclosing functions can be referenced or reassigned if named in a `nonlocal` statement. Function arguments are passed using call by value, where the value is an object reference, and each function call creates a new local symbol table.",
+        "metadata": {
+            "type": "summary",
+            "doc_id": "8887d0e3-824a-4104-8734-dcf7badf5262"
+        }
+    },
+    {
+        "page_content": "A function definition associates a name with a function object, allowing other names to point to and access the same function. Functions without a return statement implicitly return None, which can be suppressed by the interpreter unless explicitly printed using print(). The Fibonacci series can be calculated using a function that returns a list of numbers up to a given value n, demonstrating the use of the return statement and methods like append() for lists.",
+        "metadata": {
+            "type": "summary",
+            "doc_id": "4fa5e028-8eb6-4c99-9e37-0b3f5042cebf"
+        }
+    },
+    {
+        "page_content": "Functions can be defined with a variable number of arguments, using three combinable forms.",
+        "metadata": {
+            "type": "summary",
+            "doc_id": "cbcd0e41-2f49-44e7-941a-b83e3860bd1e"
+        }
+    },
+    {
+        "page_content": "Default argument values in Python functions allow for optional arguments to be specified when calling the function. This creates a function that can be called with fewer arguments than it's defined to allow. The default value is evaluated at the point of function definition, not each time the function is called. If a mutable object like a list or dictionary is used as a default argument, it will accumulate values from subsequent calls. To avoid this, use `None` as the default and initialize an empty list inside the function if needed.",
+        "metadata": {
+            "type": "summary",
+            "doc_id": "59076763-d691-4ce2-b765-a27b7a9d3ac0"
+        }
+    },
+    {
+        "page_content": "Functions can be called using keyword arguments of the form kwarg=value, where one required argument and multiple optional arguments can be specified. The parrot function example demonstrates this, showing how it can be called with various combinations of positional and keyword arguments, including invalid calls that would raise errors due to missing or duplicate values for the same argument. Additionally, a final formal parameter of the form **name receives a dictionary containing all keyword arguments except those corresponding to a formal parameter, which may be combined with a formal parameter of the form *name receiving a tuple containing positional arguments beyond the formal parameter list.",
+        "metadata": {
+            "type": "summary",
+            "doc_id": "8f056ea6-1801-45f8-8135-8b02136f70d9"
+        }
+    },
+    {
+        "page_content": "Python functions can have their arguments restricted on how they are passed using special parameters in the function definition. A function definition can include `/` for positional-only parameters, which must be passed by position and cannot be used with keyword arguments, `*` for keyword-only parameters, which must be passed explicitly by keyword and cannot be used with positional arguments, or both to indicate positional-or-keyword parameters that can be passed in either way.",
+        "metadata": {
+            "type": "summary",
+            "doc_id": "deb2a347-b5cb-4b64-9c08-d944706e3c20"
+        }
+    },
+    {
+        "page_content": "Arguments may be passed to a function by position or by keyword if `/` and `*` are not present in the function definition.",
+        "metadata": {
+            "type": "summary",
+            "doc_id": "8720fb2a-f28d-40bb-9a53-d29d8b0fc9d0"
+        }
+    },
+    {
+        "page_content": "Positional-only parameters can be marked by placing them before a forward slash (/) in a function definition. The order of these parameters matters and they cannot be passed by keyword, only positionally. Parameters following the / can be either positional-or-keyword or keyword-only, and if no / is present, there are no positional-only parameters.",
+        "metadata": {
+            "type": "summary",
+            "doc_id": "1fc816cb-4f11-4914-9851-ec74d4858850"
+        }
+    },
+    {
+        "page_content": "More control flow tools are available to define functions with special parameters, specifically keyword-only arguments, which require passing by keyword argument and can be marked with an asterisk (*) in the function definition.",
+        "metadata": {
+            "type": "summary",
+            "doc_id": "a66deffe-b09a-44ae-93a8-f8f9cfed0c19"
+        }
+    },
+    {
+        "page_content": "The Python language provides more control flow tools for defining functions with specific argument passing conventions. A function definition can include a `/` to restrict arguments to being passed only by position, or a `*` to allow keyword-only arguments. These special parameters can be used together in the same function definition. The `/` and `*` markers are used to specify how arguments should be passed when calling the function. For example, a function with a `/` marker after its first argument can only accept that argument by position, while a function with a `*` marker before its last argument can only accept additional arguments as keyword-only. The combined use of these special parameters allows for more flexibility and clarity in function definitions. However, there is a potential collision between positional arguments and keyword arguments when using the `**kwds` syntax, which can be resolved by using the `/` marker to specify that a parameter should be treated as positional-only.",
+        "metadata": {
+            "type": "summary",
+            "doc_id": "efd8e630-fc0a-4480-b3e0-e96ce15eb7ac"
+        }
+    },
+    {
+        "page_content": "The use case determines which parameters to use in a function definition, and guidance suggests using positional-only parameters when names have no real meaning or if enforcing argument order is necessary, keyword-only parameters when names have meaning and explicitness is desired, and positional-only for APIs to prevent breaking changes due to parameter name modifications.",
+        "metadata": {
+            "type": "summary",
+            "doc_id": "88b347f6-2709-4247-ac69-f12002947e4c"
+        }
+    },
+    {
+        "page_content": "The least frequently used option in defining functions is to specify an arbitrary number of arguments, which are wrapped up in a tuple and can be accessed using the *args syntax. These variadic arguments must come last in the list of formal parameters and any subsequent parameters are keyword-only, meaning they can only be used as keywords rather than positional arguments.",
+        "metadata": {
+            "type": "summary",
+            "doc_id": "a70f80fb-4b62-47dc-9020-f9931a3093c8"
+        }
+    },
+    {
+        "page_content": "When arguments are already in a list or tuple but need to be unpacked for a function call, the *-operator can be used to separate positional arguments. For example, the range() function expects separate start and stop arguments, which can be unpacked from a list: list(range(*args)). Similarly, dictionaries can deliver keyword arguments with the **-operator, allowing functions to accept arbitrary keyword arguments: parrot(**d).",
+        "metadata": {
+            "type": "summary",
+            "doc_id": "ebe79bde-c185-4545-bc93-807a4a2a5e78"
+        }
+    },
+    {
+        "page_content": "Small anonymous functions can be created with the `lambda` keyword, which returns a single expression. Lambda functions are syntactically restricted to a single expression and semantically equivalent to normal function definitions. They can reference variables from the containing scope and can be used wherever function objects are required. Examples include returning a function that takes an argument (e.g., `make_incrementor`) or passing a small function as an argument to another function, such as sorting a list of pairs based on a key function defined with lambda.",
+        "metadata": {
+            "type": "summary",
+            "doc_id": "4dae97da-21cd-4b6c-be64-a04784de561a"
+        }
+    },
+    {
+        "page_content": "Documentation strings should have a concise summary on the first line, followed by a blank line and then paragraphs describing the object's calling conventions and side effects. The Python parser does not strip indentation from multi-line string literals, so tools process documentation by stripping indentation based on the first non-blank line after the first line of the string, which determines the amount of indentation for the entire documentation string.",
+        "metadata": {
+            "type": "summary",
+            "doc_id": "b8f97f94-7998-4bd2-935f-325b676d151b"
+        }
+    },
+    {
+        "page_content": "Function annotations are optional metadata that provide information about the types used by user-defined functions. They are stored in the `__annotations__` attribute of the function as a dictionary and have no effect on any other part of the function. Annotations can be defined for parameters using a colon after the parameter name, followed by an expression evaluating to the value of the annotation, or for return values using a literal `->`, followed by an expression, between the parameter list and the end of the `def` statement. The example provided shows how to define a function with annotated parameters and return value, and demonstrates how the annotations are stored in the `__annotations__` attribute.",
+        "metadata": {
+            "type": "summary",
+            "doc_id": "7cb746e4-0203-4332-874d-c974ef7f13bf"
+        }
+    },
+    {
+        "page_content": "As you write longer and more complex Python code, adopting a consistent coding style is crucial for readability. The official PEP 8 guide promotes a readable and visually pleasing style, which most projects adhere to. Key points include using 4-space indentation (no tabs) and wrapping lines at 79 characters or less to maintain clarity and ease of reading.",
+        "metadata": {
+            "type": "summary",
+            "doc_id": "4720b092-0d16-4764-8a13-f5c62adbd62d"
+        }
+    },
+    {
+        "page_content": "Use blank lines to separate functions and classes, and larger blocks of code inside functions. Comments should be on their own line when possible, and use docstrings for documentation. Consistent naming conventions are also important: use UpperCamelCase for classes and lowercase_with_underscores for functions and methods, with self as the first method argument name. Additionally, avoid using fancy encodings or non-ASCII characters in identifiers if the code may be used internationally to ensure readability and maintainability.",
+        "metadata": {
+            "type": "summary",
+            "doc_id": "445cc4b2-c57a-40f8-97b2-47e1d2cc845d"
+        }
+    },
+    {
+        "page_content": "Call by object reference would be a more accurate description of how Python handles function arguments, as it allows the callee to modify mutable objects passed from the caller.",
+        "metadata": {
+            "type": "summary",
+            "doc_id": "0a356f14-cffe-470c-b05d-b23ea271e3e9"
+        }
+    }
+]

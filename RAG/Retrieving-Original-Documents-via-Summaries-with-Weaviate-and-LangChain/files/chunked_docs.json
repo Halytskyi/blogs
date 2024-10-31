@@ -1,0 +1,325 @@
+[
+    {
+        "page_content": "As well as the [`while`](../reference/compound_stmts.html#while) statement just introduced, Python uses a few more\nthat we will encounter in this chapter.",
+        "metadata": {
+            "Header 1": "4. More Control Flow Tools",
+            "type": "original",
+            "summary_id": "a048e600-898a-461a-a9eb-8ba66896dcbb"
+        }
+    },
+    {
+        "page_content": "Perhaps the most well\\-known statement type is the [`if`](../reference/compound_stmts.html#if) statement. For\nexample:\n\n```\n>>> x = int(input(\"Please enter an integer: \"))\nPlease enter an integer: 42\n>>> if x < 0:\n...     x = 0\n...     print('Negative changed to zero')\n... elif x == 0:\n...     print('Zero')\n... elif x == 1:\n...     print('Single')\n... else:\n...     print('More')\n...\nMore\n```\n\nThere can be zero or more [`elif`](../reference/compound_stmts.html#elif) parts, and the [`else`](../reference/compound_stmts.html#else) part is\noptional. The keyword \u2018`elif`\u2019 is short for \u2018else if\u2019, and is useful\nto avoid excessive indentation. An `if` \u2026 `elif` \u2026\n`elif` \u2026 sequence is a substitute for the `switch` or\n`case` statements found in other languages.\n\nIf you\u2019re comparing the same value to several constants, or checking for specific types or\nattributes, you may also find the `match` statement useful. For more\ndetails see [match Statements](#tut-match).",
+        "metadata": {
+            "Header 1": "4. More Control Flow Tools",
+            "Header 2": "4.1. `if` Statements",
+            "type": "original",
+            "summary_id": "c0fe74c3-a332-459c-8ab2-2098b060c448"
+        }
+    },
+    {
+        "page_content": "The [`for`](../reference/compound_stmts.html#for) statement in Python differs a bit from what you may be used\nto in C or Pascal. Rather than always iterating over an arithmetic progression\nof numbers (like in Pascal), or giving the user the ability to define both the\niteration step and halting condition (as C), Python\u2019s `for` statement\niterates over the items of any sequence (a list or a string), in the order that\nthey appear in the sequence. For example (no pun intended):\n\n```\n>>> # Measure some strings:\n>>> words = ['cat', 'window', 'defenestrate']\n>>> for w in words:\n...     print(w, len(w))\n...\ncat 3\nwindow 6\ndefenestrate 12\n```\n\nCode that modifies a collection while iterating over that same collection can\nbe tricky to get right. Instead, it is usually more straight\\-forward to loop\nover a copy of the collection or to create a new collection:\n\n```\n# Create a sample collection\nusers = {'Hans': 'active', '\u00c9l\u00e9onore': 'inactive', '\u666f\u592a\u90ce': 'active'}\n\n# Strategy:  Iterate over a copy\nfor user, status in users.copy().items():\n    if status == 'inactive':\n        del users[user]\n\n# Strategy:  Create a new collection\nactive_users = {}\nfor user, status in users.items():\n    if status == 'active':\n        active_users[user] = status\n```",
+        "metadata": {
+            "Header 1": "4. More Control Flow Tools",
+            "Header 2": "4.2. `for` Statements",
+            "type": "original",
+            "summary_id": "44717bec-0061-4c5b-ac56-08e452eaf515"
+        }
+    },
+    {
+        "page_content": "If you do need to iterate over a sequence of numbers, the built\\-in function\n[`range()`](../library/stdtypes.html#range \"range\") comes in handy. It generates arithmetic progressions:\n\n```\n>>> for i in range(5):\n...     print(i)\n...\n0\n1\n2\n3\n4\n```\n\nThe given end point is never part of the generated sequence; `range(10)` generates\n10 values, the legal indices for items of a sequence of length 10\\. It\nis possible to let the range start at another number, or to specify a different\nincrement (even negative; sometimes this is called the \u2018step\u2019):\n\n```\n>>> list(range(5, 10))\n[5, 6, 7, 8, 9]\n\n>>> list(range(0, 10, 3))\n[0, 3, 6, 9]\n\n>>> list(range(-10, -100, -30))\n[-10, -40, -70]\n```\n\nTo iterate over the indices of a sequence, you can combine [`range()`](../library/stdtypes.html#range \"range\") and\n[`len()`](../library/functions.html#len \"len\") as follows:\n\n```\n>>> a = ['Mary', 'had', 'a', 'little', 'lamb']\n>>> for i in range(len(a)):\n...     print(i, a[i])\n...\n0 Mary\n1 had\n2 a\n3 little\n4 lamb\n```\n\nIn most such cases, however, it is convenient to use the [`enumerate()`](../library/functions.html#enumerate \"enumerate\")\nfunction, see [Looping Techniques](datastructures.html#tut-loopidioms).",
+        "metadata": {
+            "Header 1": "4. More Control Flow Tools",
+            "Header 2": "4.3. The [`range()`](../library/stdtypes.html#range \"range\") Function",
+            "type": "original",
+            "summary_id": "783a7306-daff-4a19-b935-5f6fa57a3127"
+        }
+    },
+    {
+        "page_content": "A strange thing happens if you just print a range:\n\n```\n>>> range(10)\nrange(0, 10)\n```\n\nIn many ways the object returned by [`range()`](../library/stdtypes.html#range \"range\") behaves as if it is a list,\nbut in fact it isn\u2019t. It is an object which returns the successive items of\nthe desired sequence when you iterate over it, but it doesn\u2019t really make\nthe list, thus saving space.\n\nWe say such an object is [iterable](../glossary.html#term-iterable), that is, suitable as a target for\nfunctions and constructs that expect something from which they can\nobtain successive items until the supply is exhausted. We have seen that\nthe [`for`](../reference/compound_stmts.html#for) statement is such a construct, while an example of a function\nthat takes an iterable is [`sum()`](../library/functions.html#sum \"sum\"):\n\n```\n>>> sum(range(4))  # 0 + 1 + 2 + 3\n6\n```\n\nLater we will see more functions that return iterables and take iterables as\narguments. In chapter [Data Structures](datastructures.html#tut-structures), we will discuss in more detail about\n[`list()`](../library/stdtypes.html#list \"list\").",
+        "metadata": {
+            "Header 1": "4. More Control Flow Tools",
+            "Header 2": "4.3. The [`range()`](../library/stdtypes.html#range \"range\") Function",
+            "type": "original",
+            "summary_id": "be376f8a-e667-4acb-9809-6c6f181d8d82"
+        }
+    },
+    {
+        "page_content": "The [`break`](../reference/simple_stmts.html#break) statement breaks out of the innermost enclosing\n[`for`](../reference/compound_stmts.html#for) or [`while`](../reference/compound_stmts.html#while) loop:\n\n```\n>>> for n in range(2, 10):\n...     for x in range(2, n):\n...         if n % x == 0:\n...             print(f\"{n} equals {x} * {n//x}\")\n...             break\n...\n4 equals 2 * 2\n6 equals 2 * 3\n8 equals 2 * 4\n9 equals 3 * 3\n```\n\nThe [`continue`](../reference/simple_stmts.html#continue) statement continues with the next\niteration of the loop:\n\n```\n>>> for num in range(2, 10):\n...     if num % 2 == 0:\n...         print(f\"Found an even number {num}\")\n...         continue\n...     print(f\"Found an odd number {num}\")\n...\nFound an even number 2\nFound an odd number 3\nFound an even number 4\nFound an odd number 5\nFound an even number 6\nFound an odd number 7\nFound an even number 8\nFound an odd number 9\n```",
+        "metadata": {
+            "Header 1": "4. More Control Flow Tools",
+            "Header 2": "4.4. `break` and `continue` Statements",
+            "type": "original",
+            "summary_id": "95ae9fca-2aa5-46c2-af10-4f33a0556d76"
+        }
+    },
+    {
+        "page_content": "In a `for` or `while` loop the `break` statement\nmay be paired with an `else` clause. If the loop finishes without\nexecuting the `break`, the `else` clause executes.\n\nIn a [`for`](../reference/compound_stmts.html#for) loop, the `else` clause is executed\nafter the loop finishes its final iteration, that is, if no break occurred.\n\nIn a [`while`](../reference/compound_stmts.html#while) loop, it\u2019s executed after the loop\u2019s condition becomes false.\n\nIn either kind of loop, the `else` clause is **not** executed if the\nloop was terminated by a [`break`](../reference/simple_stmts.html#break). Of course, other ways of ending the\nloop early, such as a [`return`](../reference/simple_stmts.html#return) or a raised exception, will also skip\nexecution of the [`else`](../reference/compound_stmts.html#else) clause.",
+        "metadata": {
+            "Header 1": "4. More Control Flow Tools",
+            "Header 2": "4.5. `else` Clauses on Loops",
+            "type": "original",
+            "summary_id": "1384806d-e5f5-4a16-84b8-da6a893cf6b5"
+        }
+    },
+    {
+        "page_content": "This is exemplified in the following `for` loop,\nwhich searches for prime numbers:\n\n```\n>>> for n in range(2, 10):\n...     for x in range(2, n):\n...         if n % x == 0:\n...             print(n, 'equals', x, '*', n//x)\n...             break\n...     else:\n...         # loop fell through without finding a factor\n...         print(n, 'is a prime number')\n...\n2 is a prime number\n3 is a prime number\n4 equals 2 * 2\n5 is a prime number\n6 equals 2 * 3\n7 is a prime number\n8 equals 2 * 4\n9 equals 3 * 3\n```\n\n(Yes, this is the correct code. Look closely: the `else` clause belongs to\nthe `for` loop, **not** the `if` statement.)\n\nOne way to think of the else clause is to imagine it paired with the `if`\ninside the loop. As the loop executes, it will run a sequence like\nif/if/if/else. The `if` is inside the loop, encountered a number of times. If\nthe condition is ever true, a `break` will happen. If the condition is never\ntrue, the `else` clause outside the loop will execute.",
+        "metadata": {
+            "Header 1": "4. More Control Flow Tools",
+            "Header 2": "4.5. `else` Clauses on Loops",
+            "type": "original",
+            "summary_id": "c4ceec6b-2612-4ca6-aa77-f5ba9a8c868b"
+        }
+    },
+    {
+        "page_content": "When used with a loop, the `else` clause has more in common with the `else`\nclause of a [`try`](../reference/compound_stmts.html#try) statement than it does with that of `if`\nstatements: a `try` statement\u2019s `else` clause runs when no exception\noccurs, and a loop\u2019s `else` clause runs when no `break` occurs. For more on\nthe `try` statement and exceptions, see [Handling Exceptions](errors.html#tut-handling).",
+        "metadata": {
+            "Header 1": "4. More Control Flow Tools",
+            "Header 2": "4.5. `else` Clauses on Loops",
+            "type": "original",
+            "summary_id": "1c68cf71-e520-421a-b96b-2313d24db320"
+        }
+    },
+    {
+        "page_content": "The [`pass`](../reference/simple_stmts.html#pass) statement does nothing. It can be used when a statement is\nrequired syntactically but the program requires no action. For example:\n\n```\n>>> while True:\n...     pass  # Busy-wait for keyboard interrupt (Ctrl+C)\n...\n```\n\nThis is commonly used for creating minimal classes:\n\n```\n>>> class MyEmptyClass:\n...     pass\n...\n```\n\nAnother place [`pass`](../reference/simple_stmts.html#pass) can be used is as a place\\-holder for a function or\nconditional body when you are working on new code, allowing you to keep thinking\nat a more abstract level. The `pass` is silently ignored:\n\n```\n>>> def initlog(*args):\n...     pass   # Remember to implement this!\n...\n```",
+        "metadata": {
+            "Header 1": "4. More Control Flow Tools",
+            "Header 2": "4.6. `pass` Statements",
+            "type": "original",
+            "summary_id": "b121ae50-8d83-4da2-b5a9-b5d631a92794"
+        }
+    },
+    {
+        "page_content": "A [`match`](../reference/compound_stmts.html#match) statement takes an expression and compares its value to successive\npatterns given as one or more case blocks. This is superficially\nsimilar to a switch statement in C, Java or JavaScript (and many\nother languages), but it\u2019s more similar to pattern matching in\nlanguages like Rust or Haskell. Only the first pattern that matches\ngets executed and it can also extract components (sequence elements\nor object attributes) from the value into variables.\n\nThe simplest form compares a subject value against one or more literals:\n\n```\ndef http_error(status):\n    match status:\n        case 400:\n            return \"Bad request\"\n        case 404:\n            return \"Not found\"\n        case 418:\n            return \"I'm a teapot\"\n        case _:\n            return \"Something's wrong with the internet\"\n```\n\nNote the last block: the \u201cvariable name\u201d `_` acts as a *wildcard* and\nnever fails to match. If no case matches, none of the branches is executed.",
+        "metadata": {
+            "Header 1": "4. More Control Flow Tools",
+            "Header 2": "4.7. `match` Statements",
+            "type": "original",
+            "summary_id": "dcc757b1-5d05-40d7-9cd7-34dfe2d538b4"
+        }
+    },
+    {
+        "page_content": "You can combine several literals in a single pattern using `|` (\u201cor\u201d):\n\n```\ncase 401 | 403 | 404:\n    return \"Not allowed\"\n```\n\nPatterns can look like unpacking assignments, and can be used to bind\nvariables:\n\n```\n# point is an (x, y) tuple\nmatch point:\n    case (0, 0):\n        print(\"Origin\")\n    case (0, y):\n        print(f\"Y={y}\")\n    case (x, 0):\n        print(f\"X={x}\")\n    case (x, y):\n        print(f\"X={x}, Y={y}\")\n    case _:\n        raise ValueError(\"Not a point\")\n```\n\nStudy that one carefully! The first pattern has two literals, and can\nbe thought of as an extension of the literal pattern shown above. But\nthe next two patterns combine a literal and a variable, and the\nvariable *binds* a value from the subject (`point`). The fourth\npattern captures two values, which makes it conceptually similar to\nthe unpacking assignment `(x, y) = point`.",
+        "metadata": {
+            "Header 1": "4. More Control Flow Tools",
+            "Header 2": "4.7. `match` Statements",
+            "type": "original",
+            "summary_id": "82e89bf5-26af-4c72-9a41-cef8ac5da055"
+        }
+    },
+    {
+        "page_content": "If you are using classes to structure your data\nyou can use the class name followed by an argument list resembling a\nconstructor, but with the ability to capture attributes into variables:\n\n```\nclass Point:\n    def __init__(self, x, y):\n        self.x = x\n        self.y = y\n\ndef where_is(point):\n    match point:\n        case Point(x=0, y=0):\n            print(\"Origin\")\n        case Point(x=0, y=y):\n            print(f\"Y={y}\")\n        case Point(x=x, y=0):\n            print(f\"X={x}\")\n        case Point():\n            print(\"Somewhere else\")\n        case _:\n            print(\"Not a point\")\n```\n\nYou can use positional parameters with some builtin classes that provide an\nordering for their attributes (e.g. dataclasses). You can also define a specific\nposition for attributes in patterns by setting the `__match_args__` special\nattribute in your classes. If it\u2019s set to (\u201cx\u201d, \u201cy\u201d), the following patterns are all\nequivalent (and all bind the `y` attribute to the `var` variable):\n\n```\nPoint(1, var)\nPoint(1, y=var)\nPoint(x=1, y=var)\nPoint(y=var, x=1)\n```\n\nA recommended way to read patterns is to look at them as an extended form of what you\nwould put on the left of an assignment, to understand which variables would be set to\nwhat.\nOnly the standalone names (like `var` above) are assigned to by a match statement.\nDotted names (like `foo.bar`), attribute names (the `x=` and `y=` above) or class names\n(recognized by the \u201c(\u2026)\u201d next to them like `Point` above) are never assigned to.",
+        "metadata": {
+            "Header 1": "4. More Control Flow Tools",
+            "Header 2": "4.7. `match` Statements",
+            "type": "original",
+            "summary_id": "41b407af-0e79-4d20-907e-aa77d75add4f"
+        }
+    },
+    {
+        "page_content": "Patterns can be arbitrarily nested. For example, if we have a short\nlist of Points, with `__match_args__` added, we could match it like this:\n\n```\nclass Point:\n    __match_args__ = ('x', 'y')\n    def __init__(self, x, y):\n        self.x = x\n        self.y = y\n\nmatch points:\n    case []:\n        print(\"No points\")\n    case [Point(0, 0)]:\n        print(\"The origin\")\n    case [Point(x, y)]:\n        print(f\"Single point {x}, {y}\")\n    case [Point(0, y1), Point(0, y2)]:\n        print(f\"Two on the Y axis at {y1}, {y2}\")\n    case _:\n        print(\"Something else\")\n```\n\nWe can add an `if` clause to a pattern, known as a \u201cguard\u201d. If the\nguard is false, `match` goes on to try the next case block. Note\nthat value capture happens before the guard is evaluated:\n\n```\nmatch point:\n    case Point(x, y) if x == y:\n        print(f\"Y=X at {x}\")\n    case Point(x, y):\n        print(f\"Not on the diagonal\")\n```\n\nSeveral other key features of this statement:\n\n* Like unpacking assignments, tuple and list patterns have exactly the\nsame meaning and actually match arbitrary sequences. An important\nexception is that they don\u2019t match iterators or strings.\n* Sequence patterns support extended unpacking: `[x, y, *rest]` and `(x, y,\n*rest)` work similar to unpacking assignments. The\nname after `*` may also be `_`, so `(x, y, *_)` matches a sequence\nof at least two items without binding the remaining items.\n* Mapping patterns: `{\"bandwidth\": b, \"latency\": l}` captures the\n`\"bandwidth\"` and `\"latency\"` values from a dictionary. Unlike sequence\npatterns, extra keys are ignored. An unpacking like `**rest` is also\nsupported. (But `**_` would be redundant, so it is not allowed.)\n* Subpatterns may be captured using the `as` keyword:\n\n```\ncase (Point(x1, y1), Point(x2, y2) as p2): ...\n```\n\nwill capture the second element of the input as `p2` (as long as the input is\na sequence of two points)\n* Most literals are compared by equality, however the singletons `True`,\n`False` and `None` are compared by identity.\n* Patterns may use named constants. These must be dotted names\nto prevent them from being interpreted as capture variable:\n\n```\nfrom enum import Enum\nclass Color(Enum):\n    RED = 'red'\n    GREEN = 'green'\n    BLUE = 'blue'\n\ncolor = Color(input(\"Enter your choice of 'red', 'blue' or 'green': \"))\n\nmatch color:\n    case Color.RED:\n        print(\"I see red!\")\n    case Color.GREEN:\n        print(\"Grass is green\")\n    case Color.BLUE:\n        print(\"I'm feeling the blues :(\")\n```\n\nFor a more detailed explanation and additional examples, you can look into\n[**PEP 636**](https://peps.python.org/pep-0636/) which is written in a tutorial format.",
+        "metadata": {
+            "Header 1": "4. More Control Flow Tools",
+            "Header 2": "4.7. `match` Statements",
+            "type": "original",
+            "summary_id": "60a54b6e-84f6-47ee-9e18-c62b3f902a34"
+        }
+    },
+    {
+        "page_content": "We can create a function that writes the Fibonacci series to an arbitrary\nboundary:\n\n```\n>>> def fib(n):    # write Fibonacci series less than n\n...     \"\"\"Print a Fibonacci series less than n.\"\"\"\n...     a, b = 0, 1\n...     while a < n:\n...         print(a, end=' ')\n...         a, b = b, a+b\n...     print()\n...\n>>> # Now call the function we just defined:\n>>> fib(2000)\n0 1 1 2 3 5 8 13 21 34 55 89 144 233 377 610 987 1597\n```\n\nThe keyword [`def`](../reference/compound_stmts.html#def) introduces a function *definition*. It must be\nfollowed by the function name and the parenthesized list of formal parameters.\nThe statements that form the body of the function start at the next line, and\nmust be indented.\n\nThe first statement of the function body can optionally be a string literal;\nthis string literal is the function\u2019s documentation string, or *docstring*.\n(More about docstrings can be found in the section [Documentation Strings](#tut-docstrings).)\nThere are tools which use docstrings to automatically produce online or printed\ndocumentation, or to let the user interactively browse through code; it\u2019s good\npractice to include docstrings in code that you write, so make a habit of it.",
+        "metadata": {
+            "Header 1": "4. More Control Flow Tools",
+            "Header 2": "4.8. Defining Functions",
+            "type": "original",
+            "summary_id": "3a578ae7-722b-4e1b-8dbb-90f64797e5d3"
+        }
+    },
+    {
+        "page_content": "The *execution* of a function introduces a new symbol table used for the local\nvariables of the function. More precisely, all variable assignments in a\nfunction store the value in the local symbol table; whereas variable references\nfirst look in the local symbol table, then in the local symbol tables of\nenclosing functions, then in the global symbol table, and finally in the table\nof built\\-in names. Thus, global variables and variables of enclosing functions\ncannot be directly assigned a value within a function (unless, for global\nvariables, named in a [`global`](../reference/simple_stmts.html#global) statement, or, for variables of enclosing\nfunctions, named in a [`nonlocal`](../reference/simple_stmts.html#nonlocal) statement), although they may be\nreferenced.\n\nThe actual parameters (arguments) to a function call are introduced in the local\nsymbol table of the called function when it is called; thus, arguments are\npassed using *call by value* (where the *value* is always an object *reference*,\nnot the value of the object). [\\[1]](#id2) When a function calls another function,\nor calls itself recursively, a new\nlocal symbol table is created for that call.",
+        "metadata": {
+            "Header 1": "4. More Control Flow Tools",
+            "Header 2": "4.8. Defining Functions",
+            "type": "original",
+            "summary_id": "8887d0e3-824a-4104-8734-dcf7badf5262"
+        }
+    },
+    {
+        "page_content": "A function definition associates the function name with the function object in\nthe current symbol table. The interpreter recognizes the object pointed to by\nthat name as a user\\-defined function. Other names can also point to that same\nfunction object and can also be used to access the function:\n\n```\n>>> fib\n<function fib at 10042ed0>\n>>> f = fib\n>>> f(100)\n0 1 1 2 3 5 8 13 21 34 55 89\n```\n\nComing from other languages, you might object that `fib` is not a function but\na procedure since it doesn\u2019t return a value. In fact, even functions without a\n[`return`](../reference/simple_stmts.html#return) statement do return a value, albeit a rather boring one. This\nvalue is called `None` (it\u2019s a built\\-in name). Writing the value `None` is\nnormally suppressed by the interpreter if it would be the only value written.\nYou can see it if you really want to using [`print()`](../library/functions.html#print \"print\"):\n\n```\n>>> fib(0)\n>>> print(fib(0))\nNone\n```\n\nIt is simple to write a function that returns a list of the numbers of the\nFibonacci series, instead of printing it:\n\n```\n>>> def fib2(n):  # return Fibonacci series up to n\n...     \"\"\"Return a list containing the Fibonacci series up to n.\"\"\"\n...     result = []\n...     a, b = 0, 1\n...     while a < n:\n...         result.append(a)    # see below\n...         a, b = b, a+b\n...     return result\n...\n>>> f100 = fib2(100)    # call it\n>>> f100                # write the result\n[0, 1, 1, 2, 3, 5, 8, 13, 21, 34, 55, 89]\n```\n\nThis example, as usual, demonstrates some new Python features:\n\n* The [`return`](../reference/simple_stmts.html#return) statement returns with a value from a function.\n`return` without an expression argument returns `None`. Falling off\nthe end of a function also returns `None`.\n* The statement `result.append(a)` calls a *method* of the list object\n`result`. A method is a function that \u2018belongs\u2019 to an object and is named\n`obj.methodname`, where `obj` is some object (this may be an expression),\nand `methodname` is the name of a method that is defined by the object\u2019s type.\nDifferent types define different methods. Methods of different types may have\nthe same name without causing ambiguity. (It is possible to define your own\nobject types and methods, using *classes*, see [Classes](classes.html#tut-classes))\nThe method `append()` shown in the example is defined for list objects; it\nadds a new element at the end of the list. In this example it is equivalent to\n`result = result + [a]`, but more efficient.",
+        "metadata": {
+            "Header 1": "4. More Control Flow Tools",
+            "Header 2": "4.8. Defining Functions",
+            "type": "original",
+            "summary_id": "4fa5e028-8eb6-4c99-9e37-0b3f5042cebf"
+        }
+    },
+    {
+        "page_content": "It is also possible to define functions with a variable number of arguments.\nThere are three forms, which can be combined.",
+        "metadata": {
+            "Header 1": "4. More Control Flow Tools",
+            "Header 2": "4.9. More on Defining Functions",
+            "type": "original",
+            "summary_id": "cbcd0e41-2f49-44e7-941a-b83e3860bd1e"
+        }
+    },
+    {
+        "page_content": "The most useful form is to specify a default value for one or more arguments.\nThis creates a function that can be called with fewer arguments than it is\ndefined to allow. For example:\n\n```\ndef ask_ok(prompt, retries=4, reminder='Please try again!'):\n    while True:\n        reply = input(prompt)\n        if reply in {'y', 'ye', 'yes'}:\n            return True\n        if reply in {'n', 'no', 'nop', 'nope'}:\n            return False\n        retries = retries - 1\n        if retries < 0:\n            raise ValueError('invalid user response')\n        print(reminder)\n```\n\nThis function can be called in several ways:\n\n* giving only the mandatory argument:\n`ask_ok('Do you really want to quit?')`\n* giving one of the optional arguments:\n`ask_ok('OK to overwrite the file?', 2)`\n* or even giving all arguments:\n`ask_ok('OK to overwrite the file?', 2, 'Come on, only yes or no!')`\n\nThis example also introduces the [`in`](../reference/expressions.html#in) keyword. This tests whether or\nnot a sequence contains a certain value.\n\nThe default values are evaluated at the point of function definition in the\n*defining* scope, so that\n\n```\ni = 5\n\ndef f(arg=i):\n    print(arg)\n\ni = 6\nf()\n```\n\nwill print `5`.\n\n**Important warning:** The default value is evaluated only once. This makes a\ndifference when the default is a mutable object such as a list, dictionary, or\ninstances of most classes. For example, the following function accumulates the\narguments passed to it on subsequent calls:\n\n```\ndef f(a, L=[]):\n    L.append(a)\n    return L\n\nprint(f(1))\nprint(f(2))\nprint(f(3))\n```\n\nThis will print\n\n```\n[1]\n[1, 2]\n[1, 2, 3]\n```\n\nIf you don\u2019t want the default to be shared between subsequent calls, you can\nwrite the function like this instead:\n\n```\ndef f(a, L=None):\n    if L is None:\n        L = []\n    L.append(a)\n    return L\n```",
+        "metadata": {
+            "Header 1": "4. More Control Flow Tools",
+            "Header 2": "4.9. More on Defining Functions",
+            "Header 3": "4.9.1. Default Argument Values",
+            "type": "original",
+            "summary_id": "59076763-d691-4ce2-b765-a27b7a9d3ac0"
+        }
+    },
+    {
+        "page_content": "Functions can also be called using [keyword arguments](../glossary.html#term-keyword-argument)\nof the form `kwarg=value`. For instance, the following function:\n\n```\ndef parrot(voltage, state='a stiff', action='voom', type='Norwegian Blue'):\n    print(\"-- This parrot wouldn't\", action, end=' ')\n    print(\"if you put\", voltage, \"volts through it.\")\n    print(\"-- Lovely plumage, the\", type)\n    print(\"-- It's\", state, \"!\")\n```\n\naccepts one required argument (`voltage`) and three optional arguments\n(`state`, `action`, and `type`). This function can be called in any\nof the following ways:\n\n```\nparrot(1000)                                          # 1 positional argument\nparrot(voltage=1000)                                  # 1 keyword argument\nparrot(voltage=1000000, action='VOOOOOM')             # 2 keyword arguments\nparrot(action='VOOOOOM', voltage=1000000)             # 2 keyword arguments\nparrot('a million', 'bereft of life', 'jump')         # 3 positional arguments\nparrot('a thousand', state='pushing up the daisies')  # 1 positional, 1 keyword\n```\n\nbut all the following calls would be invalid:\n\n```\nparrot()                     # required argument missing\nparrot(voltage=5.0, 'dead')  # non-keyword argument after a keyword argument\nparrot(110, voltage=220)     # duplicate value for the same argument\nparrot(actor='John Cleese')  # unknown keyword argument\n```\n\nIn a function call, keyword arguments must follow positional arguments.\nAll the keyword arguments passed must match one of the arguments\naccepted by the function (e.g. `actor` is not a valid argument for the\n`parrot` function), and their order is not important. This also includes\nnon\\-optional arguments (e.g. `parrot(voltage=1000)` is valid too).\nNo argument may receive a value more than once.\nHere\u2019s an example that fails due to this restriction:\n\n```\n>>> def function(a):\n...     pass\n...\n>>> function(0, a=0)\nTraceback (most recent call last):\n  File \"<stdin>\", line 1, in <module>\nTypeError: function() got multiple values for argument 'a'\n```\n\nWhen a final formal parameter of the form `**name` is present, it receives a\ndictionary (see [Mapping Types \u2014 dict](../library/stdtypes.html#typesmapping)) containing all keyword arguments except for\nthose corresponding to a formal parameter. This may be combined with a formal\nparameter of the form `*name` (described in the next subsection) which\nreceives a [tuple](datastructures.html#tut-tuples) containing the positional\narguments beyond the formal parameter list. (`*name` must occur\nbefore `**name`.) For example, if we define a function like this:\n\n```\ndef cheeseshop(kind, *arguments, **keywords):\n    print(\"-- Do you have any\", kind, \"?\")\n    print(\"-- I'm sorry, we're all out of\", kind)\n    for arg in arguments:\n        print(arg)\n    print(\"-\" * 40)\n    for kw in keywords:\n        print(kw, \":\", keywords[kw])\n```\n\nIt could be called like this:\n\n```\ncheeseshop(\"Limburger\", \"It's very runny, sir.\",\n           \"It's really very, VERY runny, sir.\",\n           shopkeeper=\"Michael Palin\",\n           client=\"John Cleese\",\n           sketch=\"Cheese Shop Sketch\")\n```\n\nand of course it would print:\n\n```\n-- Do you have any Limburger ?\n-- I'm sorry, we're all out of Limburger\nIt's very runny, sir.\nIt's really very, VERY runny, sir.\n----------------------------------------\nshopkeeper : Michael Palin\nclient : John Cleese\nsketch : Cheese Shop Sketch\n```\n\nNote that the order in which the keyword arguments are printed is guaranteed\nto match the order in which they were provided in the function call.",
+        "metadata": {
+            "Header 1": "4. More Control Flow Tools",
+            "Header 2": "4.9. More on Defining Functions",
+            "Header 3": "4.9.2. Keyword Arguments",
+            "type": "original",
+            "summary_id": "8f056ea6-1801-45f8-8135-8b02136f70d9"
+        }
+    },
+    {
+        "page_content": "By default, arguments may be passed to a Python function either by position\nor explicitly by keyword. For readability and performance, it makes sense to\nrestrict the way arguments can be passed so that a developer need only look\nat the function definition to determine if items are passed by position, by\nposition or keyword, or by keyword.\n\nA function definition may look like:\n\n```\ndef f(pos1, pos2, /, pos_or_kwd, *, kwd1, kwd2):\n      -----------    ----------     ----------\n        |             |                  |\n        |        Positional or keyword   |\n        |                                - Keyword only\n         -- Positional only\n```\n\nwhere `/` and `*` are optional. If used, these symbols indicate the kind of\nparameter by how the arguments may be passed to the function:\npositional\\-only, positional\\-or\\-keyword, and keyword\\-only. Keyword parameters\nare also referred to as named parameters.",
+        "metadata": {
+            "Header 1": "4. More Control Flow Tools",
+            "Header 2": "4.9. More on Defining Functions",
+            "Header 3": "4.9.3. Special parameters",
+            "type": "original",
+            "summary_id": "deb2a347-b5cb-4b64-9c08-d944706e3c20"
+        }
+    },
+    {
+        "page_content": "If `/` and `*` are not present in the function definition, arguments may\nbe passed to a function by position or by keyword.",
+        "metadata": {
+            "Header 1": "4. More Control Flow Tools",
+            "Header 2": "4.9. More on Defining Functions",
+            "Header 3": "4.9.3. Special parameters",
+            "Header 4": "4.9.3.1. Positional-or-Keyword Arguments",
+            "type": "original",
+            "summary_id": "8720fb2a-f28d-40bb-9a53-d29d8b0fc9d0"
+        }
+    },
+    {
+        "page_content": "Looking at this in a bit more detail, it is possible to mark certain parameters\nas *positional\\-only*. If *positional\\-only*, the parameters\u2019 order matters, and\nthe parameters cannot be passed by keyword. Positional\\-only parameters are\nplaced before a `/` (forward\\-slash). The `/` is used to logically\nseparate the positional\\-only parameters from the rest of the parameters.\nIf there is no `/` in the function definition, there are no positional\\-only\nparameters.\n\nParameters following the `/` may be *positional\\-or\\-keyword* or *keyword\\-only*.",
+        "metadata": {
+            "Header 1": "4. More Control Flow Tools",
+            "Header 2": "4.9. More on Defining Functions",
+            "Header 3": "4.9.3. Special parameters",
+            "Header 4": "4.9.3.2. Positional-Only Parameters",
+            "type": "original",
+            "summary_id": "1fc816cb-4f11-4914-9851-ec74d4858850"
+        }
+    },
+    {
+        "page_content": "To mark parameters as *keyword\\-only*, indicating the parameters must be passed\nby keyword argument, place an `*` in the arguments list just before the first\n*keyword\\-only* parameter.",
+        "metadata": {
+            "Header 1": "4. More Control Flow Tools",
+            "Header 2": "4.9. More on Defining Functions",
+            "Header 3": "4.9.3. Special parameters",
+            "Header 4": "4.9.3.3. Keyword-Only Arguments",
+            "type": "original",
+            "summary_id": "a66deffe-b09a-44ae-93a8-f8f9cfed0c19"
+        }
+    },
+    {
+        "page_content": "Consider the following example function definitions paying close attention to the\nmarkers `/` and `*`:\n\n```\n>>> def standard_arg(arg):\n...     print(arg)\n...\n>>> def pos_only_arg(arg, /):\n...     print(arg)\n...\n>>> def kwd_only_arg(*, arg):\n...     print(arg)\n...\n>>> def combined_example(pos_only, /, standard, *, kwd_only):\n...     print(pos_only, standard, kwd_only)\n```\n\nThe first function definition, `standard_arg`, the most familiar form,\nplaces no restrictions on the calling convention and arguments may be\npassed by position or keyword:\n\n```\n>>> standard_arg(2)\n2\n\n>>> standard_arg(arg=2)\n2\n```\n\nThe second function `pos_only_arg` is restricted to only use positional\nparameters as there is a `/` in the function definition:\n\n```\n>>> pos_only_arg(1)\n1\n\n>>> pos_only_arg(arg=1)\nTraceback (most recent call last):\n  File \"<stdin>\", line 1, in <module>\nTypeError: pos_only_arg() got some positional-only arguments passed as keyword arguments: 'arg'\n```\n\nThe third function `kwd_only_arg` only allows keyword arguments as indicated\nby a `*` in the function definition:\n\n```\n>>> kwd_only_arg(3)\nTraceback (most recent call last):\n  File \"<stdin>\", line 1, in <module>\nTypeError: kwd_only_arg() takes 0 positional arguments but 1 was given\n\n>>> kwd_only_arg(arg=3)\n3\n```\n\nAnd the last uses all three calling conventions in the same function\ndefinition:\n\n```\n>>> combined_example(1, 2, 3)\nTraceback (most recent call last):\n  File \"<stdin>\", line 1, in <module>\nTypeError: combined_example() takes 2 positional arguments but 3 were given\n\n>>> combined_example(1, 2, kwd_only=3)\n1 2 3\n\n>>> combined_example(1, standard=2, kwd_only=3)\n1 2 3\n\n>>> combined_example(pos_only=1, standard=2, kwd_only=3)\nTraceback (most recent call last):\n  File \"<stdin>\", line 1, in <module>\nTypeError: combined_example() got some positional-only arguments passed as keyword arguments: 'pos_only'\n```\n\nFinally, consider this function definition which has a potential collision between the positional argument `name` and `**kwds` which has `name` as a key:\n\n```\ndef foo(name, **kwds):\n    return 'name' in kwds\n```\n\nThere is no possible call that will make it return `True` as the keyword `'name'`\nwill always bind to the first parameter. For example:\n\n```\n>>> foo(1, **{'name': 2})\nTraceback (most recent call last):\n  File \"<stdin>\", line 1, in <module>\nTypeError: foo() got multiple values for argument 'name'\n>>>\n```\n\nBut using `/` (positional only arguments), it is possible since it allows `name` as a positional argument and `'name'` as a key in the keyword arguments:\n\n```\n>>> def foo(name, /, **kwds):\n...     return 'name' in kwds\n...\n>>> foo(1, **{'name': 2})\nTrue\n```\n\nIn other words, the names of positional\\-only parameters can be used in\n`**kwds` without ambiguity.",
+        "metadata": {
+            "Header 1": "4. More Control Flow Tools",
+            "Header 2": "4.9. More on Defining Functions",
+            "Header 3": "4.9.3. Special parameters",
+            "Header 4": "4.9.3.4. Function Examples",
+            "type": "original",
+            "summary_id": "efd8e630-fc0a-4480-b3e0-e96ce15eb7ac"
+        }
+    },
+    {
+        "page_content": "The use case will determine which parameters to use in the function definition:\n\n```\ndef f(pos1, pos2, /, pos_or_kwd, *, kwd1, kwd2):\n```\n\nAs guidance:\n\n* Use positional\\-only if you want the name of the parameters to not be\navailable to the user. This is useful when parameter names have no real\nmeaning, if you want to enforce the order of the arguments when the function\nis called or if you need to take some positional parameters and arbitrary\nkeywords.\n* Use keyword\\-only when names have meaning and the function definition is\nmore understandable by being explicit with names or you want to prevent\nusers relying on the position of the argument being passed.\n* For an API, use positional\\-only to prevent breaking API changes\nif the parameter\u2019s name is modified in the future.",
+        "metadata": {
+            "Header 1": "4. More Control Flow Tools",
+            "Header 2": "4.9. More on Defining Functions",
+            "Header 3": "4.9.3. Special parameters",
+            "Header 4": "4.9.3.5. Recap",
+            "type": "original",
+            "summary_id": "88b347f6-2709-4247-ac69-f12002947e4c"
+        }
+    },
+    {
+        "page_content": "Finally, the least frequently used option is to specify that a function can be\ncalled with an arbitrary number of arguments. These arguments will be wrapped\nup in a tuple (see [Tuples and Sequences](datastructures.html#tut-tuples)). Before the variable number of arguments,\nzero or more normal arguments may occur.\n\n```\ndef write_multiple_items(file, separator, *args):\n    file.write(separator.join(args))\n```\n\nNormally, these *variadic* arguments will be last in the list of formal\nparameters, because they scoop up all remaining input arguments that are\npassed to the function. Any formal parameters which occur after the `*args`\nparameter are \u2018keyword\\-only\u2019 arguments, meaning that they can only be used as\nkeywords rather than positional arguments.\n\n```\n>>> def concat(*args, sep=\"/\"):\n...     return sep.join(args)\n...\n>>> concat(\"earth\", \"mars\", \"venus\")\n'earth/mars/venus'\n>>> concat(\"earth\", \"mars\", \"venus\", sep=\".\")\n'earth.mars.venus'\n```",
+        "metadata": {
+            "Header 1": "4. More Control Flow Tools",
+            "Header 2": "4.9. More on Defining Functions",
+            "Header 3": "4.9.4. Arbitrary Argument Lists",
+            "type": "original",
+            "summary_id": "a70f80fb-4b62-47dc-9020-f9931a3093c8"
+        }
+    },
+    {
+        "page_content": "The reverse situation occurs when the arguments are already in a list or tuple\nbut need to be unpacked for a function call requiring separate positional\narguments. For instance, the built\\-in [`range()`](../library/stdtypes.html#range \"range\") function expects separate\n*start* and *stop* arguments. If they are not available separately, write the\nfunction call with the `*`\\-operator to unpack the arguments out of a list\nor tuple:\n\n```\n>>> list(range(3, 6))            # normal call with separate arguments\n[3, 4, 5]\n>>> args = [3, 6]\n>>> list(range(*args))            # call with arguments unpacked from a list\n[3, 4, 5]\n```\n\nIn the same fashion, dictionaries can deliver keyword arguments with the\n`**`\\-operator:\n\n```\n>>> def parrot(voltage, state='a stiff', action='voom'):\n...     print(\"-- This parrot wouldn't\", action, end=' ')\n...     print(\"if you put\", voltage, \"volts through it.\", end=' ')\n...     print(\"E's\", state, \"!\")\n...\n>>> d = {\"voltage\": \"four million\", \"state\": \"bleedin' demised\", \"action\": \"VOOM\"}\n>>> parrot(**d)\n-- This parrot wouldn't VOOM if you put four million volts through it. E's bleedin' demised !\n```",
+        "metadata": {
+            "Header 1": "4. More Control Flow Tools",
+            "Header 2": "4.9. More on Defining Functions",
+            "Header 3": "4.9.5. Unpacking Argument Lists",
+            "type": "original",
+            "summary_id": "ebe79bde-c185-4545-bc93-807a4a2a5e78"
+        }
+    },
+    {
+        "page_content": "Small anonymous functions can be created with the [`lambda`](../reference/expressions.html#lambda) keyword.\nThis function returns the sum of its two arguments: `lambda a, b: a+b`.\nLambda functions can be used wherever function objects are required. They are\nsyntactically restricted to a single expression. Semantically, they are just\nsyntactic sugar for a normal function definition. Like nested function\ndefinitions, lambda functions can reference variables from the containing\nscope:\n\n```\n>>> def make_incrementor(n):\n...     return lambda x: x + n\n...\n>>> f = make_incrementor(42)\n>>> f(0)\n42\n>>> f(1)\n43\n```\n\nThe above example uses a lambda expression to return a function. Another use\nis to pass a small function as an argument:\n\n```\n>>> pairs = [(1, 'one'), (2, 'two'), (3, 'three'), (4, 'four')]\n>>> pairs.sort(key=lambda pair: pair[1])\n>>> pairs\n[(4, 'four'), (1, 'one'), (3, 'three'), (2, 'two')]\n```",
+        "metadata": {
+            "Header 1": "4. More Control Flow Tools",
+            "Header 2": "4.9. More on Defining Functions",
+            "Header 3": "4.9.6. Lambda Expressions",
+            "type": "original",
+            "summary_id": "4dae97da-21cd-4b6c-be64-a04784de561a"
+        }
+    },
+    {
+        "page_content": "Here are some conventions about the content and formatting of documentation\nstrings.\n\nThe first line should always be a short, concise summary of the object\u2019s\npurpose. For brevity, it should not explicitly state the object\u2019s name or type,\nsince these are available by other means (except if the name happens to be a\nverb describing a function\u2019s operation). This line should begin with a capital\nletter and end with a period.\n\nIf there are more lines in the documentation string, the second line should be\nblank, visually separating the summary from the rest of the description. The\nfollowing lines should be one or more paragraphs describing the object\u2019s calling\nconventions, its side effects, etc.\n\nThe Python parser does not strip indentation from multi\\-line string literals in\nPython, so tools that process documentation have to strip indentation if\ndesired. This is done using the following convention. The first non\\-blank line\n*after* the first line of the string determines the amount of indentation for\nthe entire documentation string. (We can\u2019t use the first line since it is\ngenerally adjacent to the string\u2019s opening quotes so its indentation is not\napparent in the string literal.) Whitespace \u201cequivalent\u201d to this indentation is\nthen stripped from the start of all lines of the string. Lines that are\nindented less should not occur, but if they occur all their leading whitespace\nshould be stripped. Equivalence of whitespace should be tested after expansion\nof tabs (to 8 spaces, normally).\n\nHere is an example of a multi\\-line docstring:\n\n```\n>>> def my_function():\n...     \"\"\"Do nothing, but document it.\n...\n...     No, really, it doesn't do anything.\n...     \"\"\"\n...     pass\n...\n>>> print(my_function.__doc__)\nDo nothing, but document it.\n\n    No, really, it doesn't do anything.\n```",
+        "metadata": {
+            "Header 1": "4. More Control Flow Tools",
+            "Header 2": "4.9. More on Defining Functions",
+            "Header 3": "4.9.7. Documentation Strings",
+            "type": "original",
+            "summary_id": "b8f97f94-7998-4bd2-935f-325b676d151b"
+        }
+    },
+    {
+        "page_content": "[Function annotations](../reference/compound_stmts.html#function) are completely optional metadata\ninformation about the types used by user\\-defined functions (see [**PEP 3107**](https://peps.python.org/pep-3107/) and\n[**PEP 484**](https://peps.python.org/pep-0484/) for more information).\n\n[Annotations](../glossary.html#term-function-annotation) are stored in the `__annotations__`\nattribute of the function as a dictionary and have no effect on any other part of the\nfunction. Parameter annotations are defined by a colon after the parameter name, followed\nby an expression evaluating to the value of the annotation. Return annotations are\ndefined by a literal `->`, followed by an expression, between the parameter\nlist and the colon denoting the end of the [`def`](../reference/compound_stmts.html#def) statement. The\nfollowing example has a required argument, an optional argument, and the return\nvalue annotated:\n\n```\n>>> def f(ham: str, eggs: str = 'eggs') -> str:\n...     print(\"Annotations:\", f.__annotations__)\n...     print(\"Arguments:\", ham, eggs)\n...     return ham + ' and ' + eggs\n...\n>>> f('spam')\nAnnotations: {'ham': <class 'str'>, 'return': <class 'str'>, 'eggs': <class 'str'>}\nArguments: spam eggs\n'spam and eggs'\n```",
+        "metadata": {
+            "Header 1": "4. More Control Flow Tools",
+            "Header 2": "4.9. More on Defining Functions",
+            "Header 3": "4.9.8. Function Annotations",
+            "type": "original",
+            "summary_id": "7cb746e4-0203-4332-874d-c974ef7f13bf"
+        }
+    },
+    {
+        "page_content": "Now that you are about to write longer, more complex pieces of Python, it is a\ngood time to talk about *coding style*. Most languages can be written (or more\nconcise, *formatted*) in different styles; some are more readable than others.\nMaking it easy for others to read your code is always a good idea, and adopting\na nice coding style helps tremendously for that.\n\nFor Python, [**PEP 8**](https://peps.python.org/pep-0008/) has emerged as the style guide that most projects adhere to;\nit promotes a very readable and eye\\-pleasing coding style. Every Python\ndeveloper should read it at some point; here are the most important points\nextracted for you:\n\n* Use 4\\-space indentation, and no tabs.\n\n4 spaces are a good compromise between small indentation (allows greater\nnesting depth) and large indentation (easier to read). Tabs introduce\nconfusion, and are best left out.\n* Wrap lines so that they don\u2019t exceed 79 characters.",
+        "metadata": {
+            "Header 1": "4. More Control Flow Tools",
+            "Header 2": "4.10. Intermezzo: Coding Style",
+            "type": "original",
+            "summary_id": "4720b092-0d16-4764-8a13-f5c62adbd62d"
+        }
+    },
+    {
+        "page_content": "This helps users with small displays and makes it possible to have several\ncode files side\\-by\\-side on larger displays.\n* Use blank lines to separate functions and classes, and larger blocks of\ncode inside functions.\n* When possible, put comments on a line of their own.\n* Use docstrings.\n* Use spaces around operators and after commas, but not directly inside\nbracketing constructs: `a = f(1, 2) + g(3, 4)`.\n* Name your classes and functions consistently; the convention is to use\n`UpperCamelCase` for classes and `lowercase_with_underscores` for functions\nand methods. Always use `self` as the name for the first method argument\n(see [A First Look at Classes](classes.html#tut-firstclasses) for more on classes and methods).\n* Don\u2019t use fancy encodings if your code is meant to be used in international\nenvironments. Python\u2019s default, UTF\\-8, or even plain ASCII work best in any\ncase.\n* Likewise, don\u2019t use non\\-ASCII characters in identifiers if there is only the\nslightest chance people speaking a different language will read or maintain\nthe code.\n\nFootnotes",
+        "metadata": {
+            "Header 1": "4. More Control Flow Tools",
+            "Header 2": "4.10. Intermezzo: Coding Style",
+            "type": "original",
+            "summary_id": "445cc4b2-c57a-40f8-97b2-47e1d2cc845d"
+        }
+    },
+    {
+        "page_content": "\\[[1](#id1)]\nActually, *call by object reference* would be a better description,\nsince if a mutable object is passed, the caller will see any changes the\ncallee makes to it (items inserted into a list).",
+        "metadata": {
+            "Header 1": "4. More Control Flow Tools",
+            "Header 2": "4.10. Intermezzo: Coding Style",
+            "type": "original",
+            "summary_id": "0a356f14-cffe-470c-b05d-b23ea271e3e9"
+        }
+    }
+]
